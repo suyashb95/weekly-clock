@@ -1,0 +1,21 @@
+#container {
+	position: relative;
+	top: 30px;
+	outline:none;
+	font-size: 0;
+	margin:auto;
+	height:70%;
+	width:70%;
+	padding: 0;
+	border: none;
+}
+
+.grid {
+	margin:1px;
+	padding:1px;
+    border:0.05px solid #000;
+    border-radius: 0.01px;
+    display:inline-block;
+    width: 5px;
+    height: 5px;
+}
