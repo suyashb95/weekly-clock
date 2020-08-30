@@ -1,5 +1,6 @@
 
 const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+const _MAX_AGE = 80
 
 function dateDiffInDays(a, b) {
     const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
@@ -8,11 +9,25 @@ function dateDiffInDays(a, b) {
     return Math.floor((utc2 - utc1) / _MS_PER_DAY);
   }
 
+function addYears(date, yearsToAdd) {
+    let newDate = new Date(date.getTime());
+    newDate.setFullYear(date.getFullYear() + yearsToAdd);
+    return newDate;
+}
+
+function daysToWeeks(noOfDays) {
+    return Math.floor(noOfDays / 7);
+}
+
 function onDateChange(e) {
-    let noOfWeeks = Math.floor(dateDiffInDays(new Date(e.target.value), new Date('2080-01-01')) / 7);
-    let noOfWeeksTillNow = Math.floor(dateDiffInDays(new Date(e.target.value), new Date()) / 7);
+    let birthDate = new Date(e.target.value);
+    let deathDate = addYears(birthDate, _MAX_AGE);
+
+    let noOfWeeksTilLDeath =daysToWeeks(dateDiffInDays(birthDate, deathDate));
+    let noOfWeeksTillNow = daysToWeeks(dateDiffInDays(birthDate, new Date()));
+
     clearGrid();
-    createGrid(noOfWeeks, noOfWeeksTillNow);
+    createGrid(noOfWeeksTilLDeath, noOfWeeksTillNow);
 }
 
 function clearGrid() {
@@ -20,9 +35,9 @@ function clearGrid() {
         .forEach((item) => item.remove());
 }
 
-function createGrid(noOfWeeks, noOfWeeksTillNow) {
+function createGrid(noOfWeeksTilLDeath, noOfWeeksTillNow) {
     let container = document.getElementById("container");
-    for (let i = 0; i < noOfWeeks; i++) {
+    for (let i = 0; i < noOfWeeksTilLDeath; i++) {
         let block = document.createElement("div");
         block.classList.add("grid");
         block.style.backgroundColor = (i <= noOfWeeksTillNow) ? "red" : "yellow";
