@@ -23,7 +23,7 @@ function onDateChange(e) {
     let birthDate = new Date(e.target.value);
     let deathDate = addYears(birthDate, _MAX_AGE);
 
-    let noOfWeeksTilLDeath =daysToWeeks(dateDiffInDays(birthDate, deathDate));
+    let noOfWeeksTilLDeath = daysToWeeks(dateDiffInDays(birthDate, deathDate));
     let noOfWeeksTillNow = daysToWeeks(dateDiffInDays(birthDate, new Date()));
 
     clearGrid();
